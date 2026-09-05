@@ -1,29 +1,22 @@
-#include<bits/stdc++.h>
 #include<iostream>
-#pragma GCC optimize("unroll-loops")
-#define ll long long
 using namespace std;
-const int MOD=1e9+7;
-int n,x[13];
-void inkq(){
-	for(int i=0;i<n;++i)
-		cout<<x[i];
-	cout<<'\n';
+short n,xau[14];
+void sinh(){
+    for(short i=1;i<=n;++i)
+        cout<<xau[i];
+    cout<<'\n';
 }
-void ql(int i){
-	for(int j=0;j<=2;++j){
-		x[i]=j;
-		if(i==n-1)
-			inkq();
-		else
-			ql(i+1);
-	}
+void back(short pos){
+    for(short i=0;i<=2;++i){
+        xau[pos]=i;
+        if(pos==n)
+            sinh();
+        else
+            back(pos+1);
+    }
 }
-int main()
-{
-	ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-	//freopen(".inp","r",stdin);
-	//freopen(".out","w",stdout);
-	cin>>n;
-	ql(0);
+int main(){
+    ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+    cin>>n;
+    back(1);
 }

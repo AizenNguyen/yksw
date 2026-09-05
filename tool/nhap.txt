@@ -1,0 +1,25 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+long long x,a,b,tmp,checkmin=1000000000000;
+long long lcm(int a,int b){
+    if(a==0||b==0) return 0;
+    return (a/__gcd(a,b))*b;
+}
+int main(){
+    ios_base::sync_with_stdio(0);cin.tie(0);
+    cin>>x;
+    for(int i=1;i*i<=x;++i){
+        if(x%i==0){
+            tmp=x/i;
+            cout<<i<<" "<<tmp<<'\n';
+            if(lcm(i,tmp)==x){
+                if(checkmin>tmp){
+                    a=i; b=tmp;
+                    checkmin=tmp;
+                }
+            }
+        }
+    }
+    cout<<"ANS: "<<a<<" "<<b;
+}
