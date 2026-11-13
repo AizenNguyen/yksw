@@ -1,6 +1,7 @@
 #include<iostream>
 using namespace std;
-string s;
+int tmpsz;
+string s,tmp;
 bool dssnt[1000003];
 int main(){
 	ios_base::sync_with_stdio(0);cin.tie(0);

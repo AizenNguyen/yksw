@@ -10,18 +10,19 @@ long long Randll(long long l,long long r){
 }
 void sinh(){
     ofstream cout("sinh.inp");
-    int n=Rand(6000,7000);
-    //long long n=Randll(1,10000000000);
-    cout<<n<<'\n';
-    for(int i=0;i<n;++i)
-    cout<<Rand(80000000, 900000000)<<" ";
+    int n=Rand(1,15); cout<<n<<" ";
+    int k=Rand(3,7); cout<<k<<'\n';
+    for(int i=1;i<=n;i++){
+        int ai=(Rand(3,20));
+        cout<<ai<<" ";
+    }
 }
 int main(){
-    for(int i=1;i<=1000000;++i){
+    for(int i=1;i<=100;++i){
         sinh();
-        system("thuat");
-        system("trau");
-        if(system("fc sinh.out sinh.ans")){
+        system("thuat.exe < sinh.inp > sinh.out");
+        system("trau.exe < sinh.inp > sinh.ans");
+        if(system("fc sinh.out sinh.ans > nul")){
             cout<<"Wrong";
             break;
         }

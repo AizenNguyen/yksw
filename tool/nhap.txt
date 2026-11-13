@@ -1,25 +1,30 @@
-#include<iostream>
-#include<algorithm>
+#include <bits/stdc++.h>
 using namespace std;
-long long x,a,b,tmp,checkmin=1000000000000;
-long long lcm(int a,int b){
-    if(a==0||b==0) return 0;
-    return (a/__gcd(a,b))*b;
+// Seed bằng high-resolution clock chống trùng khi chạy lại nhanh
+mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+long long Rand(long long l, long long r) {
+    return uniform_int_distribution<long long>(l, r)(rng);
 }
-int main(){
-    ios_base::sync_with_stdio(0);cin.tie(0);
-    cin>>x;
-    for(int i=1;i*i<=x;++i){
-        if(x%i==0){
-            tmp=x/i;
-            cout<<i<<" "<<tmp<<'\n';
-            if(lcm(i,tmp)==x){
-                if(checkmin>tmp){
-                    a=i; b=tmp;
-                    checkmin=tmp;
-                }
-            }
+void sinh() {
+    ofstream cout("sinh.inp");
+    int t = Rand(1, 15);
+    cout << t << '\n';
+    // Sinh thêm dữ liệu ở đây...
+}
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    const int NUM_TESTS=100;
+    for (int i = 1; i <= NUM_TESTS; ++i) {
+        sinh();
+        system("thuat.exe < sinh.inp > sinh.out");
+        system("trau.exe < sinh.inp > sinh.ans");
+        // /w: bỏ qua khoảng trắng thừa/dòng trống ở cuối file
+        if (system("fc /w sinh.out sinh.ans > nul")!=0) {
+            cout<<"[-] TEST "<<i<<": WRONG ANSWER!\n";
+            break;
         }
+        cout<<"[+] TEST "<<i<<": CORRECT\n";
     }
-    cout<<"ANS: "<<a<<" "<<b;
+    return 0;
 }
