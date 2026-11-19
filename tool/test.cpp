@@ -1,37 +1,57 @@
 #include<iostream>
-#include<algorithm>
-#include<vector>
 using namespace std;
-short n,m;
-vector<pair<short,int>> ldb;
-void brute(){
-    int MAX;
-    short a[n+10][m+10],pftime[n+10]={};
-    int cnt_zero[n+10]={};
-    for(short i=1;i<=n;i++){
-        for(short j=1;j<=m;j++){
-            cin>>a[i][j];
-            pftime[i]+=a[i][j];
-            if(a[i][j]==0) cnt_zero[i]++;
+int n;
+string s;
+void solve_ifelse(){
+    int res,len,lastpos;
+    s=" "+s;
+    res=n; lastpos=0;
+    for(int i=1;i<=n;i++){
+        if(s[i]=='L'){
+            len=i-lastpos;
+            if(lastpos==0) res-=i;
+            else if(s[lastpos]=='L') res-=len;
+            else if(s[lastpos]=='R'){
+                if((len+1)%2!=0) res-=len;
+                else res-=len+1;
+            }
+            lastpos=i;
+        }
+        else if(s[i]=='R'){
+            if(s[lastpos]=='R') res-=i-lastpos;
+            lastpos=i;
         }
     }
-    for(int i=1;i<=n;i++) cnt_zero[i]=(m-cnt_zero[i])*10;
-    sort(cnt_zero+1,cnt_zero+n+1);
-    MAX=cnt_zero[n];
-    for(int i=n;i>=1;i--)
-        if(cnt_zero[i]==MAX)
-            ldb.emplace_back(pftime[n-i+1],n-i+1);
-    sort(ldb.begin(),ldb.end());
-    for(auto x:ldb){
-        cout<<x.first<<" "<<x.second<<'\n';
+    if(s[lastpos]=='R') res-=n-lastpos+1;
+    cout<<res<<'\n';
+    res=0;
+}
+void solve_sentinel(){
+    int res,lastpos,newsz;
+    res=lastpos=0;
+    newsz=n+1;
+    s="L"+s+"R";
+    for(int i=1;i<=newsz;i++){
+        if(s[i]=='.') continue;
+        if(s[i]=='R'&&s[lastpos]=='L'){
+            res+=i-lastpos-1;
+        }
+        else if(s[i]=='L'&&s[lastpos]=='R'){
+            if((i-lastpos)%2==0)
+                res++;
+        }
+        lastpos=i;
     }
+    cout<<res<<'\n';
+    res=0;
 }
 int main(){
-    if(fopen("team.inp","r")){
-        freopen("team.inp","r",stdin);
-        freopen("team.out","w",stdout);
+    if(fopen("BAI4.INP","r")){
+        freopen("BAI4.INP","r",stdin);
+        freopen("BAI4.OUT","w",stdout);
     }
     ios_base::sync_with_stdio(0);cin.tie(0);
-    cin>>n>>m;
-    brute();
+    cin>>n>>s;
+    //solve_ifelse();
+    solve_sentinel();
 }

@@ -1,61 +1,57 @@
 #include<iostream>
-#include<algorithm>
 using namespace std;
 int n;
-long long k,delta,res;
-void brute(){
-	long long a[n+10]; a[0]=0;
-	for(int i=1;i<=n;i++) cin>>a[i];
-	for(int i=1;i<n;i++)
-		for(int j=i+1;j<=n;j++)
-			if(a[j]-k==a[i]) res++;
-	cout<<res<<'\n';
-	res=0;
+string s;
+void solve_ifelse(){
+    int res,len,lastpos;
+    s=" "+s;
+    res=n; lastpos=0;
+    for(int i=1;i<=n;i++){
+        if(s[i]=='L'){
+            len=i-lastpos;
+            if(lastpos==0) res-=i;
+            else if(s[lastpos]=='L') res-=len;
+            else if(s[lastpos]=='R'){
+                if((len+1)%2!=0) res-=len;
+                else res-=len+1;
+            }
+            lastpos=i;
+        }
+        else if(s[i]=='R'){
+            if(s[lastpos]=='R') res-=i-lastpos;
+            lastpos=i;
+        }
+    }
+    if(s[lastpos]=='R') res-=n-lastpos+1;
+    cout<<res<<'\n';
+    res=0;
 }
-void solve_bs(){
-	long long a[n+10]; a[0]=0;
-	for(int i=1;i<=n;i++) cin>>a[i];
-	sort(a+1,a+n+1);
-	for(int i=1;i<=n;i++){
-		delta=a[i]+k;
-		auto first=lower_bound(a+1,a+n+1,delta);
-		if(*first!=delta) continue;
-		auto last=upper_bound(a+1,a+n+1,delta);
-		res+=last-first;
-	}
-	cout<<res<<'\n';
-	res=0;
-}
-void solve_tp_mine(){
-	int l=1,r=2,cnt_first,cnt_delta;
-	cnt_first=cnt_delta=1;
-	long long a[n+10]; a[0]=0;
-	for(int i=1;i<=n;i++) cin>>a[i];
-	sort(a+1,a+n+1);
-	while(l<=n&&a[l]+k<=a[n]&&r<=n){
-		if(a[r]==a[l]+k){
-			while(a[r+1]==a[l]+k){
-				cnt_delta++;
-				r++;
-			}
-			while(a[l]==a[l+1]){
-				cnt_first++;
-				l++;
-			}
-			res+=cnt_first*cnt_delta;
-			cnt_delta=cnt_first=1;
-			l++;
-		}
-		while(a[l]<a[r]-k) l++;
-		if(a[l]!=a[r]-k) r++;
-	}
-	cout<<res<<'\n';
-	res=0;
+void solve_sentinel(){
+    int res,lastpos,newsz;
+    res=lastpos=0;
+    newsz=n+1;
+    s="L"+s+"R";
+    for(int i=1;i<=newsz;i++){
+        if(s[i]=='.') continue;
+        if(s[i]=='R'&&s[lastpos]=='L'){
+            res+=i-lastpos-1;
+        }
+        else if(s[i]=='L'&&s[lastpos]=='R'){
+            if((i-lastpos)%2==0)
+                res++;
+        }
+        lastpos=i;
+    }
+    cout<<res<<'\n';
+    res=0;
 }
 int main(){
-	ios_base::sync_with_stdio(0);cin.tie(0);
-	cin>>n>>k;
-	//brute();
-	solve_bs();
-	//solve_tp_mine();
+    if(fopen("BAI4.INP","r")){
+        freopen("BAI4.INP","r",stdin);
+        freopen("BAI4.OUT","w",stdout);
+    }
+    ios_base::sync_with_stdio(0);cin.tie(0);
+    cin>>n>>s;
+    solve_ifelse();
+    //solve_sentinel();
 }
