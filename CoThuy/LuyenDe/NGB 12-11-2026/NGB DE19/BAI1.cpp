@@ -2,6 +2,10 @@
 using namespace std;
 long long a,cost;
 int main(){
+	if(fopen("BAI1.INP","r")){
+		freopen("BAI1.INP","r",stdin);
+		freopen("BAI1.OUT","w",stdout);
+	}
 	ios_base::sync_with_stdio(0);cin.tie(0);
 	cin>>a;
 	if(a<=5) cost=a*8000;

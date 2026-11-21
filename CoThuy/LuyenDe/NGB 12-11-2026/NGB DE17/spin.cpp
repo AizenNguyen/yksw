@@ -38,7 +38,6 @@ void solve(){
 		}
 		else break;
 	}
-	cout<<b[n]<<" "<<x<<'\n';
 	cout<<1LL*k*t+((x*(x+1))/2)-sb<<'\n';
 }
 int main(){

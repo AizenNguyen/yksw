@@ -12,10 +12,7 @@ int main(){
 	cin>>n>>s;
 	s=" "+s;
 	for(int i=1;i<=n;i++){
-		if(s[i]=='0'){
-			cnt=0;
-			while(s[i+1]==0) i++;
-		}
+		if(s[i]=='0') cnt=0;
 		else{
 			cnt++;
 			score+=cnt;

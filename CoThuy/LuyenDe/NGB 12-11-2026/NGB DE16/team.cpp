@@ -3,7 +3,7 @@
 #include<vector>
 using namespace std;
 short n,m;
-int maxpoint=0,mintime=1000000;
+int maxpoint=0,mintime=2e9;
 void brute(){
 	short a[n+10][m+10];
 	int point[n+10]={},pftime[n+10]={};

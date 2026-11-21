@@ -1,57 +1,42 @@
 #include<iostream>
 using namespace std;
 int n;
-string s;
-void solve_ifelse(){
-    int res,len,lastpos;
-    s=" "+s;
-    res=n; lastpos=0;
+void brute(){
+    int a[n+1]; a[0]=0;
+    long long s,MAX=-1e18;
+    for(int i=1;i<=n;i++) cin>>a[i];
     for(int i=1;i<=n;i++){
-        if(s[i]=='L'){
-            len=i-lastpos;
-            if(lastpos==0) res-=i;
-            else if(s[lastpos]=='L') res-=len;
-            else if(s[lastpos]=='R'){
-                if((len+1)%2!=0) res-=len;
-                else res-=len+1;
-            }
-            lastpos=i;
-        }
-        else if(s[i]=='R'){
-            if(s[lastpos]=='R') res-=i-lastpos;
-            lastpos=i;
+        s=0;
+        for(int j=i;j<=n;j++){
+            s+=a[j];
+            if(MAX<s) MAX=s;
         }
     }
-    if(s[lastpos]=='R') res-=n-lastpos+1;
-    cout<<res<<'\n';
-    res=0;
+    cout<<MAX<<'\n';
+    MAX=0;
 }
-void solve_sentinel(){
-    int res,lastpos,newsz;
-    res=lastpos=0;
-    newsz=n+1;
-    s="L"+s+"R";
-    for(int i=1;i<=newsz;i++){
-        if(s[i]=='.') continue;
-        if(s[i]=='R'&&s[lastpos]=='L'){
-            res+=i-lastpos-1;
+void solve_pf(){
+    int x,MAXpos;
+    long long MIN=1e18,MAX=-1e18,res,pf[n+1];
+    pf[0]=0;
+    for(int i=1;i<=n;i++){
+        cin>>x;
+        pf[i]=pf[i-1]+x;
+        if(MAX<pf[i]){
+            MAX=pf[i];
+            MAXpos=i;
         }
-        else if(s[i]=='L'&&s[lastpos]=='R'){
-            if((i-lastpos)%2==0)
-                res++;
-        }
-        lastpos=i;
     }
+    for(int i=1;i<=MAXpos;i++)
+        if(MIN>pf[i])
+            MIN=pf[i];
+    res=MAX-MIN;
+    res=(res>pf[n]?res:pf[n]);
     cout<<res<<'\n';
-    res=0;
 }
 int main(){
-    if(fopen("BAI4.INP","r")){
-        freopen("BAI4.INP","r",stdin);
-        freopen("BAI4.OUT","w",stdout);
-    }
     ios_base::sync_with_stdio(0);cin.tie(0);
-    cin>>n>>s;
-    //solve_ifelse();
-    solve_sentinel();
+    cin>>n;
+    //brute();
+    solve_pf();
 }

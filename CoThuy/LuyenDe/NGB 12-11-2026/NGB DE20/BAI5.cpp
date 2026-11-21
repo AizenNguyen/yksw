@@ -10,7 +10,7 @@ void brute(){
 	for(int i=1;i<=n;i++)
 		for(int j=i+1;j<=n;j++)
 			for(int k=j+1;k<=n;k++)
-				res+=(a[i]*a[j]*a[k])%MOD;
+				res=(res+1LL*a[i]*a[j]%MOD*a[k])%MOD;
 	cout<<res%MOD;
 }
 void solve(){
