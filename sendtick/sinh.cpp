@@ -10,7 +10,7 @@ long long Randll(long long l,long long r){
 }
 void sinh(){
     ofstream cout("sinh.inp");
-    int n=Rand(5,10);
+    int n=Rand(10,15);
     cout<<n<<'\n';
     for(int i=1;i<=n;i++){
         int xi=Rand(-5,5);
@@ -18,7 +18,7 @@ void sinh(){
     }
 }
 int main(){
-    for(int i=1;i<=10;++i){
+    for(int i=1;i<=150;++i){
         sinh();
         system("trau.exe < sinh.inp > sinh.ans");
         system("thuat.exe < sinh.inp > sinh.out");

@@ -1,38 +1,34 @@
 #include<iostream>
+#include<map>
 using namespace std;
 int n;
 void brute(){
-    int a[n+1]; a[0]=0;
-    long long s,MAX=-1e18;
+    int a[n+1];
+    long long s,cnt;
+    a[0]=cnt=0;
     for(int i=1;i<=n;i++) cin>>a[i];
     for(int i=1;i<=n;i++){
         s=0;
         for(int j=i;j<=n;j++){
             s+=a[j];
-            if(MAX<s) MAX=s;
+            if(s==0) cnt++;
         }
     }
-    cout<<MAX<<'\n';
-    MAX=0;
+    cout<<cnt<<'\n';
 }
 void solve_pf(){
-    int x,MAXpos;
-    long long MIN=1e18,MAX=-1e18,res,pf[n+1];
-    pf[0]=0;
+    int x;
+    long long cnt=0,tmp,pf[n+1]; pf[0]=0;
+    map<long long,int> freq; freq[0]=1;
     for(int i=1;i<=n;i++){
         cin>>x;
         pf[i]=pf[i-1]+x;
-        if(MAX<pf[i]){
-            MAX=pf[i];
-            MAXpos=i;
-        }
+        tmp=pf[i];
+        freq[tmp]++;
+        if(tmp!=0) cnt+=freq[tmp]-1;
     }
-    for(int i=1;i<=MAXpos;i++)
-        if(MIN>pf[i])
-            MIN=pf[i];
-    res=MAX-MIN;
-    res=(res>pf[n]?res:pf[n]);
-    cout<<res<<'\n';
+    cnt+=freq[0]*(freq[0]-1)/2;
+    cout<<cnt<<'\n';
 }
 int main(){
     ios_base::sync_with_stdio(0);cin.tie(0);

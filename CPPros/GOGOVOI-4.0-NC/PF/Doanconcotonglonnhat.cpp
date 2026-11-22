@@ -15,9 +15,25 @@ void brute(){
 	}
 	cout<<res<<'\n';
 }
+void solve_pf(){
+	int x;
+	long long MINpf,res=-1e18,pf[n+1];
+	pf[0]=MINpf=0;
+	for(int i=1;i<=n;i++){
+		cin>>x;
+		pf[i]=pf[i-1]+x;
+	}
+	for(int i=1;i<=n;i++){
+		res=max(res,pf[i]-MINpf);
+		MINpf=min(MINpf,pf[i]);
+	}
+	cout<<res<<'\n';
+}
 int main(){
 	ios_base::sync_with_stdio(0);cin.tie(0);
 	cin>>n;
-	brute();
-	//solve();
+	//brute();
+	solve();
 }
+//		res=res>pf[i]-MINpf?res:pf[i]-MINpf;
+//		MINpf=MINpf<pf[i]?MINpf:pf[i];
