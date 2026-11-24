@@ -1,6 +1,7 @@
 #include<iostream>
 using namespace std;
 int n;
+long long pf[200005];
 void brute(){
 	int a[n+1];
 	long long left_s,right_s,cnt;
@@ -17,7 +18,7 @@ void brute(){
 }
 void solve_pf(){
 	int x;
-	long long cnt,half_s,pf[n+1];
+	long long cnt,half_s;
 	pf[0]=cnt=0;
 	for(int i=1;i<=n;i++){
 		cin>>x;

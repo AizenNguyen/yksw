@@ -1,36 +1,29 @@
 #include<iostream>
-#include<map>
 using namespace std;
+short t;
 int n;
-void brute(){
-    int a[n+1];
-    long long s,cnt;
-    a[0]=cnt=0;
-    for(int i=1;i<=n;i++) cin>>a[i];
-    for(int i=1;i<=n;i++){
-        s=0;
-        for(int j=i;j<=n;j++){
-            s+=a[j];
-            if(s==0) cnt++;
-        }
-    }
-    cout<<cnt<<'\n';
-}
-void solve_pf(){
+void solve(){
     int x;
-    long long cnt=0,pf[n+1]; pf[0]=0;
-    map<long long,int> freq; freq[0]=1;
+    long long pf,minpf,maxneg,maxsub1,maxsub2;
+    pf=minpf=maxsub1=0;
+    maxneg=maxsub2=-1e18;
     for(int i=1;i<=n;i++){
         cin>>x;
-        pf[i]=pf[i-1]+x;
-        freq[pf[i]]++;
+        pf=pf+x;
+        if(x>0) maxsub1+=x;
+        if(x<=0) maxneg=maxneg>x?maxneg:x;
+        maxsub2=maxsub2>pf-minpf?maxsub2:pf-minpf;
+        minpf=minpf<pf?minpf:pf;
     }
-    for(auto x:freq) cnt+=x.second*(x.second-1)/2;
-    cout<<cnt<<'\n';
+    if(maxsub1==0&&maxneg!=-1e18) maxsub1=maxneg;
+    cout<<maxsub1<<" "<<maxsub2<<'\n';
 }
 int main(){
     ios_base::sync_with_stdio(0);cin.tie(0);
-    cin>>n;
-    //brute();
-    solve_pf();
+    cin>>t;
+    while(t--){
+        cin>>n;
+        //brute();
+        solve();
+    }
 }
