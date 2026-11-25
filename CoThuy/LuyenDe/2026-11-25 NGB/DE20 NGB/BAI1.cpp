@@ -10,5 +10,5 @@ int main(){
 	}
 	ios_base::sync_with_stdio(0);cin.tie(0);
 	cin>>a>>alpha>>h;
-	cout<<fixed<<setprecision(3)<<tan(acos(-1)*alpha/180)*a+h;
+	cout<<fixed<<setprecision(3)<<tan(alpha*acos(-1)/180)*a+h;
 }
