@@ -5,7 +5,7 @@ mt19937_64 rdll(time(0));
 int Rand(int l,int r){
     return l+rd()%(r-l+1);
 }
-long long Randll(long long l,long long r){
+long long Randll(long longg l,long long r){
     return l+rdll()%(r-l+1);
 }
 void sinh(){

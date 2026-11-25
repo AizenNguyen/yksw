@@ -1,29 +1,30 @@
-#include<iostream>
+#include<bits/stdc++.h>
 using namespace std;
-short t;
-int n;
-void solve(){
-    int x;
-    long long pf,minpf,maxneg,maxsub1,maxsub2;
-    pf=minpf=maxsub1=0;
-    maxneg=maxsub2=-1e18;
+mt19937_64 rd(time(0));
+long long Rand(long long l,long long r){
+    if(l>r) swap(l,r);
+    return uniform_int_distribution<long long>(l,r)(rd);
+}
+void sinh(){
+    ofstream cout("sinh.inp");
+    int n=Rand(2,15);
+    cout<<n<<'\n';
     for(int i=1;i<=n;i++){
-        cin>>x;
-        pf=pf+x;
-        if(x>0) maxsub1+=x;
-        if(x<=0) maxneg=maxneg>x?maxneg:x;
-        maxsub2=maxsub2>pf-minpf?maxsub2:pf-minpf;
-        minpf=minpf<pf?minpf:pf;
+        int xi=Rand(-5,5);
+        cout<<xi<<" ";
     }
-    if(maxsub1==0&&maxneg!=-1e18) maxsub1=maxneg;
-    cout<<maxsub1<<" "<<maxsub2<<'\n';
+    cout<<'\n';
 }
 int main(){
-    ios_base::sync_with_stdio(0);cin.tie(0);
-    cin>>t;
-    while(t--){
-        cin>>n;
-        //brute();
-        solve();
+    for(int t=1;t<=1000;++t){
+        sinh();
+        system("trau.exe < sinh.inp > sinh.ans");
+        system("thuat.exe < sinh.inp > sinh.out");
+        if(system("fc sinh.out sinh.ans > nul")){
+            cout<<"[-] TEST "<<t<<" WRONG!\n";
+            return 0;
+        }
+        if(t%100==0) cout<<"Passed "<<t<<" test...\n";
     }
+    cout<<"\n=> ALL TESTS PASSED\n";
 }
