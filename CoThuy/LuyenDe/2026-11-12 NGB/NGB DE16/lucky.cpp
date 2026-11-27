@@ -1,6 +1,7 @@
 #include<iostream>
 #include<algorithm>     //solve_bs
 #include<unordered_map> //solve_freq
+#include<ctime>
 using namespace std;
 int n,q,x;
 void solve_bs(){

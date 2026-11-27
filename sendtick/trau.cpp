@@ -1,54 +1,49 @@
-#include<iostream>
+#include<bits/stdc++.h>
 using namespace std;
-bool prime[1000006];
-int n,x;
-long long pf,maxs=-1e18;
-long long pre[1000006];
-void sieve(){
-    prime[0]=prime[1]=1;
-    for(int i=4;i<=1000000;i+=2) prime[i]=1;
-    for(int i=3;i*i<=1000000;i++)
-        if(!prime[i])
-            for(int j=i*i;j<=1000000;j+=i)
-                prime[j]=1;
-}
+long long n,k,mina,maxa,len,len_max=1;
+int a[200005];
 void brute(){
     for(int i=1;i<=n;i++){
-        cin>>x;
-        pre[i]=pre[i-1]+x;
+        mina=maxa=a[i];
+        for(int j=i;j<=n;j++){
+            mina=mina<a[j]?mina:a[j];
+            maxa=maxa>a[j]?maxa:a[j];
+            if(maxa-mina>k) break;
+            else{
+                len=j-i+1;
+                len_max=len_max>len?len_max:len;
+                //for(int l=i;l<=j;l++) cout<<a[l]<<" ";
+                //cout<<'\n';
+            }
+        }
     }
-    //for(int i=1;i<=n;i++) cout<<pre[i]<<" ";
-    for(int i=2;i<=n;i++){
-        if(!prime[i])
-            for(int j=i;j<=n;j++)
-                if(!prime[j]){
-                    maxs=maxs>pre[j]-pre[i-1]?maxs:pre[j]-pre[i-1];
-                    //cout<<i<<" "<<j<<" "<<pre[j]-pre[i-1]<<'\n';
-                }
-    }
-    cout<<maxs<<'\n';
+    cout<<len_max;
 }
 void solve(){
-    long long minpf=0;
-    for(int i=1;i<=n;i++){
-        cin>>x;
-        pf+=x;
-        if(i==2){
-            maxs=x;
-            minpf=pf-x;
+    long long l,r;
+    l=r=1;
+    mina=maxa=a[r];
+    while(r<=n){
+        mina=mina<a[r]?mina:a[r];
+        maxa=maxa>a[r]?maxa:a[r];
+        if(maxa-mina>k){
+            mina=maxa=a[r];
+            len_max=len_max>r-l?len_max:r-l;
+            l++;
         }
-        else if(!prime[i]){
-            maxs=maxs>pf-minpf?maxs:pf-minpf;
-            maxs=maxs>x?maxs:x;
-            minpf=minpf<pf-x?minpf:pf-x;
-        }
+        else r++;
     }
-    cout<<maxs<<'\n';
+    len_max=len_max>r-l?len_max:r-l;
+    cout<<len_max;
 }
 int main(){
+    if(fopen("CAU2.INP","r")){
+        freopen("CAU2.INP","r",stdin);
+        freopen("CAU2.OUT","w",stdout);
+    }
     ios_base::sync_with_stdio(0);cin.tie(0);
-    cin>>n;
-    sieve();
+    cin>>n>>k;
+    for(int i=1;i<=n;i++) cin>>a[i];
     brute();
     //solve();
 }

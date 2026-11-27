@@ -1,27 +1,30 @@
-#include<iostream>
-#include<algorithm>
+#include<bits/stdc++.h>
 using namespace std;
-int n,x,y;
-long long res=0;
+mt19937_64 rd(time(0));
+long long Rand(long long l,long long r){
+    if(l>r) swap(l,r);
+    return uniform_int_distribution<long long>(l,r)(rd);
+}
+void sinh(){
+    ofstream cout("sinh.inp");
+    int n=Rand(2,15);
+    cout<<n<<'\n';
+    for(int i=1;i<=n;i++){
+        int xi=Rand(-5,5);
+        cout<<xi<<" ";
+    }
+    cout<<'\n';
+}
 int main(){
-    ios_base::sync_with_stdio(0);cin.tie(0);
-    cin>>n;
-    int ax[n],ay[n],px[n],py[n];
-    px[0]=py[0]=0;
-    for(int i=0;i<n;++i)
-        cin>>ax[i]>>ay[i];
-    sort(ax,ax+n);
-    sort(ay,ay+n);
-    for(int i=1;i<n;++i){
-        px[i]=abs(px[i-1]+ax[i]-ax[i-1]);
-        py[i]=abs(py[i-1]+ay[i]-ay[i-1]);
-        res+=abs(px[i]+py[i])+abs(ax[i]-ax[i-1])+abs(ay[i]-ay[i-1]);
+    for(int t=1;t<=1000;++t){
+        sinh();
+        system("trau.exe < sinh.inp > sinh.ans");
+        system("thuat.exe < sinh.inp > sinh.out");
+        if(system("fc sinh.out sinh.ans > nul")){
+            cout<<"[-] TEST "<<t<<" WRONG!\n";
+            return 0;
+        }
+        if(t%100==0) cout<<"Passed "<<t<<" test...\n";
     }
-    res-=abs(ax[1]-ax[0])+(ay[1]-ay[0]);
-    if(n>2)
-        for(int i=1;i<n-2;++i){
-            res+=abs(px[i]-px[i+2])+abs(py[i]-px[i+2])+abs(px[i]-px[n-1])+abs(px[i]-px[n-1]);
-            cout<<abs(px[i]-px[i+2])<<" ";
-    }
-    cout<<res;
+    cout<<"\n=> ALL TESTS PASSED\n";
 }

@@ -1,30 +1,24 @@
-#include<bits/stdc++.h>
-using namespace std;
-mt19937_64 rd(time(0));
-long long Rand(long long l,long long r){
-    if(l>r) swap(l,r);
-    return uniform_int_distribution<long long>(l,r)(rd);
-}
-void sinh(){
-    ofstream cout("sinh.inp");
-    int n=Rand(2,15);
-    cout<<n<<'\n';
-    for(int i=1;i<=n;i++){
-        int xi=Rand(-5,5);
-        cout<<xi<<" ";
-    }
-    cout<<'\n';
-}
-int main(){
-    for(int t=1;t<=1000;++t){
-        sinh();
-        system("trau.exe < sinh.inp > sinh.ans");
-        system("thuat.exe < sinh.inp > sinh.out");
-        if(system("fc sinh.out sinh.ans > nul")){
-            cout<<"[-] TEST "<<t<<" WRONG!\n";
-            return 0;
+while(n){
+        d=n%10;
+        n/=10;
+        if(pre_cond==0){
+            if(pre_d<d) pre_cond=2;
+            else if(pre_d>d) pre_cond=1;
         }
-        if(t%100==0) cout<<"Passed "<<t<<" test...\n";
+        else{
+            if(pre_d==d) continue;
+            if(pre_d<d) cond=2;
+            else if(pre_d>d) cond=1;
+            else if(pre_d<d){ //tang
+                if(pre_cond==2) continue;
+                doc_cnt++;
+            }
+            else if(pre_d>d){ //giam
+                if(pre_cond==1) continue;
+                doc_cnt++;
+            }
+        }
+        pre_cond=cond;
+        pre_d=d;
+        if(doc_cnt>2) return false;
     }
-    cout<<"\n=> ALL TESTS PASSED\n";
-}
